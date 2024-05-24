@@ -17,6 +17,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
@@ -41,7 +43,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js.jsx}": [
+    "src/**/*.js.jsx": [
       "npm run lint",
       "npm run format"
     ]
