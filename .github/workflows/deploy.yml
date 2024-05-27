@@ -1,14 +1,16 @@
-name: Continuous Integration
+name: Continuous Deployment
+
 on:
   push:
-  pull_request:
+    branches:
+      - master
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -23,10 +25,9 @@ jobs:
       - name: Run formatters
         run: npm run format
 
+      - name: Build
+        run: npm run build
+
       - name: Run unit tests
         run: npm run test
 
-      - name: Check commit messages
-        uses: wagoid/commitlint-github-action@v6
-        with:
-          configFile: commitlint.config.cjs
