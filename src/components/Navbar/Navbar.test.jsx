@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import { describe, expect, test } from 'vitest';
 
 describe('Navbar', () => {
-  test('Navbar renders correctly', () => {
+  test('navbar renders correctly', () => {
     render(<Navbar />);
     const headingElement = screen.getByRole('heading');
     expect(headingElement).toBeInTheDocument();
