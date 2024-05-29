@@ -1,6 +1,8 @@
 import { createContext, useEffect, useReducer } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 const initialState = {
   isAuthenticated: false,
@@ -47,6 +49,7 @@ export const AuthContext = createContext({
 export const AuthProvider = (props) => {
   const { children } = props;
   const [state, dispatch] = useReducer(reducer, initialState);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const initialize = async () => {
@@ -54,8 +57,14 @@ export const AuthProvider = (props) => {
         const loggedInUser = window.localStorage.getItem('user');
         if (loggedInUser) {
           console.log('loggedInUser', loggedInUser);
-
-          // continue setup
+          const userData = JSON.parse(loggedInUser);
+          dispatch({
+            type: 'INITIALIZE',
+            payload: {
+              isAuthenticated: true,
+              user: userData,
+            },
+          });
         } else {
           dispatch({
             type: 'INITIALIZE',
@@ -82,13 +91,39 @@ export const AuthProvider = (props) => {
   const login = useGoogleLogin({
     onSuccess: (response) => {
       console.log('login response', response);
-      // complete login
-      // dispatch({
-      //   type: 'LOGIN',
-      //   payload: {
-      //     user: response,
-      //   },
-      // });
+      if (response.access_token) {
+        const getUser = async () => {
+          try {
+            const userData = await axios.get(
+              `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${response.access_token}`,
+                  Accept: 'application/json',
+                },
+              }
+            );
+            console.log('user data', userData.data);
+            localStorage.setItem('user', JSON.stringify(userData.data));
+            navigate('/home');
+            dispatch({
+              type: 'LOGIN',
+              payload: {
+                user: userData.data,
+              },
+            });
+          } catch (error) {
+            console.log(error);
+            dispatch({
+              type: 'LOGIN',
+              payload: {
+                user: null,
+              },
+            });
+          }
+        };
+        getUser();
+      }
     },
     onError: (error) => {
       console.log(error);
