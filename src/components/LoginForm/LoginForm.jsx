@@ -13,7 +13,12 @@ const LoginForm = () => {
           Want to join the community? Sign up and explore various artists from
           all over the world and their music. Showcase your music to the world!
         </p>
-        <button onClick={login}>Sign In with Google</button>
+        <button
+          onClick={login}
+          className="bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark cursor-pointer"
+        >
+          Sign In with Google
+        </button>
       </div>
     </div>
   );
