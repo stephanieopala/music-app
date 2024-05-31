@@ -19,13 +19,12 @@ const routes = [
     index: true,
   },
   {
-    element: <ProtectedRoute />,
-    children: [
-      {
-        path: '/home',
-        element: <Home />,
-      },
-    ],
+    path: '/home',
+    element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '*',
