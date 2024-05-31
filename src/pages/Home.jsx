@@ -21,8 +21,6 @@ const Home = () => {
         const values = await allPromise;
         setUsers(values[0].data);
         setAlbums(values[1].data);
-        console.log('users', values[0].data);
-        console.log('albums', values[1].data);
         setLoading(false);
       } catch (error) {
         console.log(error);
