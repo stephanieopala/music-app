@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
 
 // eslint-disable-next-line react/display-name
 const Loadable = (Component) => (props) => (

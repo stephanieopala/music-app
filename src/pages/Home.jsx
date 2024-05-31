@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axiosInstance from '../../api/api';
 import Navbar from '../components/Navbar/Navbar';
 import { useAuth } from '../hooks/use-auth';
+import Skeleton from '../components/Skeleton';
 
 const Home = () => {
   const [users, setUsers] = useState([]);
@@ -40,7 +41,7 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <div className="border rounded-md border-light-gray py-2 sm:px-6 lg:px-8">
+      <div className="overflow-x-auto border rounded-md border-light-gray py-2 sm:px-6 lg:px-8">
         <table className="min-w-full table-auto text-left">
           <thead className="border-b border-light-gray py-4">
             <tr>
@@ -61,7 +62,7 @@ const Home = () => {
                   key={user.id}
                   className="border-b border-light-gray hover:bg-table-head cursor-pointer"
                 >
-                  <td>{user?.name}</td>
+                  <td className="px-2 sm:px-6 py-4">{user?.name}</td>
                   <td>{user?.email}</td>
                   <td>{user?.website}</td>
                   <td>{numberOfAlbums}</td>
@@ -71,7 +72,7 @@ const Home = () => {
           </tbody>
         </table>
         {displayUnavailable && <p>Data not available</p>}
-        {displayLoading && <p>...Loading</p>}
+        {displayLoading && <Skeleton />}
         {displayError && <p>{errorMessage}</p>}
       </div>
     </div>
