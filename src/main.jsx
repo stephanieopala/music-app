@@ -6,7 +6,7 @@ import App from './App.jsx';
 import './index.css';
 import { AuthProvider } from './context/auth-context.jsx';
 
-const googleClientId = await import.meta.env;
+const googleClientId = import.meta.env;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <GoogleOAuthProvider clientId={googleClientId.VITE_CLIENT_ID}>
