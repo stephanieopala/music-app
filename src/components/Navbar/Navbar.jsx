@@ -15,7 +15,7 @@ const Navbar = () => {
                   ? 'text-primary font-semibold'
                   : 'hover:text-primary font-semibold'
               }
-              to="/home"
+              to="/users"
             >
               Home
             </NavLink>
