@@ -105,7 +105,7 @@ export const AuthProvider = (props) => {
             );
             console.log('user data', userData.data);
             localStorage.setItem('user', JSON.stringify(userData.data));
-            navigate('/home');
+            navigate('/users');
             dispatch({
               type: 'LOGIN',
               payload: {
