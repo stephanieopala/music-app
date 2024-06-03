@@ -47,7 +47,6 @@ const Home = () => {
           <thead className="border-b border-light-gray py-4">
             <tr>
               <th className="py-4 font-semibold">Name</th>
-              <th className="py-4 font-semibold">Email</th>
               <th className="py-4 font-semibold">Website</th>
               <th className="py-4 font-semibold">Albums</th>
             </tr>
@@ -63,7 +62,7 @@ const Home = () => {
                   key={user.id}
                   className="border-b border-light-gray hover:bg-table-head cursor-pointer"
                 >
-                  <td className="px-2 sm:px-6 py-4">
+                  <td className="pr-1 sm:pr-6 py-4">
                     <Link
                       to={`/users/${user.id}`}
                       className="hover:underline hover:text-primary"
@@ -72,9 +71,8 @@ const Home = () => {
                     </Link>
                     <p className="text-dark-gray">{`@ ${user?.username}`}</p>
                   </td>
-                  <td className="px-2 sm:px-6 py-4">{user?.email}</td>
-                  <td className="px-2 sm:px-6 py-4">{user?.website}</td>
-                  <td className="px-2 sm:px-6 py-4">{numberOfAlbums}</td>
+                  <td className="pr-1 sm:pr-6 py-4">{user?.website}</td>
+                  <td className="pr-1 sm:pr-6 py-4">{numberOfAlbums}</td>
                 </tr>
               );
             })}
