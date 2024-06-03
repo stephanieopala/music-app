@@ -1,26 +1,23 @@
-import { createContext, useEffect, useReducer } from 'react';
+import { createContext, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin, googleLogout } from '@react-oauth/google';
 import axios from 'axios';
 
-const initialState = {
-  isAuthenticated: false,
-  isInitialized: false,
-  user: null,
+const loggedinUser = window.localStorage.getItem('user');
+const localData = {
+  isAuthenticated: true,
+  user: JSON.parse(loggedinUser),
 };
 
-const handlers = {
-  INITIALIZE: (state, action) => {
-    const { isAuthenticated, user } = action.payload;
-
-    return {
-      ...state,
-      isAuthenticated,
-      isInitialized: true,
-      user,
+const initialState = loggedinUser
+  ? localData
+  : {
+      isAuthenticated: false,
+      user: null,
     };
-  },
+
+const handlers = {
   LOGIN: (state, action) => {
     const { user } = action.payload;
 
@@ -51,46 +48,8 @@ export const AuthProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const initialize = async () => {
-      try {
-        const loggedInUser = window.localStorage.getItem('user');
-        if (loggedInUser) {
-          console.log('loggedInUser', loggedInUser);
-          const userData = JSON.parse(loggedInUser);
-          dispatch({
-            type: 'INITIALIZE',
-            payload: {
-              isAuthenticated: true,
-              user: userData,
-            },
-          });
-        } else {
-          dispatch({
-            type: 'INITIALIZE',
-            payload: {
-              isAuthenticated: false,
-              user: null,
-            },
-          });
-        }
-      } catch (error) {
-        console.log(error);
-        dispatch({
-          type: 'INITIALIZE',
-          payload: {
-            isAuthenticated: false,
-            user: null,
-          },
-        });
-      }
-    };
-    initialize();
-  }, []);
-
   const login = useGoogleLogin({
     onSuccess: (response) => {
-      console.log('login response', response);
       if (response.access_token) {
         const getUser = async () => {
           try {
@@ -103,7 +62,6 @@ export const AuthProvider = (props) => {
                 },
               }
             );
-            console.log('user data', userData.data);
             localStorage.setItem('user', JSON.stringify(userData.data));
             navigate('/users');
             dispatch({
@@ -136,10 +94,14 @@ export const AuthProvider = (props) => {
     },
   });
 
-  //add logout
+  const logout = () => {
+    googleLogout();
+    localStorage.clear();
+    dispatch({ type: 'LOGOUT' });
+  };
 
   return (
-    <AuthContext.Provider value={{ ...state, login }}>
+    <AuthContext.Provider value={{ ...state, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
