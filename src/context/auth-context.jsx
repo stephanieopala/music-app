@@ -1,7 +1,7 @@
 import { createContext, useEffect, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin, googleLogout } from '@react-oauth/google';
 import axios from 'axios';
 
 const initialState = {
@@ -54,6 +54,7 @@ export const AuthProvider = (props) => {
   useEffect(() => {
     const initialize = async () => {
       try {
+        console.log('initial state from context', initialState.isAuthenticated);
         const loggedInUser = window.localStorage.getItem('user');
         if (loggedInUser) {
           console.log('loggedInUser', loggedInUser);
@@ -136,10 +137,14 @@ export const AuthProvider = (props) => {
     },
   });
 
-  //add logout
+  const logout = () => {
+    googleLogout();
+    localStorage.clear();
+    dispatch({ type: 'LOGOUT' });
+  };
 
   return (
-    <AuthContext.Provider value={{ ...state, login }}>
+    <AuthContext.Provider value={{ ...state, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
