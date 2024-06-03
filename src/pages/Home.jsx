@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axiosInstance from '../../api/api';
 import Navbar from '../components/Navbar/Navbar';
-import { useAuth } from '../hooks/use-auth';
 import Skeleton from '../components/Skeleton';
 
 const Home = () => {
@@ -10,9 +9,6 @@ const Home = () => {
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
-  const { isAuthenticated } = useAuth();
-
-  console.log(('isAuth', isAuthenticated));
 
   useEffect(() => {
     const loadData = async () => {

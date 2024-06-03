@@ -53,12 +53,10 @@ const AlbumPhoto = () => {
     };
     try {
       if (!newTitleError) {
-        console.log(body);
         const response = await axiosInstance.put(
           `photos/${params.photoId}`,
           JSON.stringify(body)
         );
-        console.log('response body', response.data);
         setNewTitle('');
         setNewTitleError(null);
         toast.success('Title updated successfully');
