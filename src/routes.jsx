@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
 
 // eslint-disable-next-line react/display-name
 const Loadable = (Component) => (props) => (
@@ -10,6 +10,8 @@ const Loadable = (Component) => (props) => (
 
 const LandingPage = Loadable(lazy(() => import('./pages/LandingPage')));
 const Home = Loadable(lazy(() => import('./pages/Home')));
+const User = Loadable(lazy(() => import('./pages/User')));
+const Album = Loadable(lazy(() => import('./pages/Album')));
 const NotFound = Loadable(lazy(() => import('./pages/NotFound')));
 
 const routes = [
@@ -19,10 +21,26 @@ const routes = [
     index: true,
   },
   {
-    path: '/home',
+    path: '/users',
     element: (
       <ProtectedRoute>
         <Home />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/users/:id',
+    element: (
+      <ProtectedRoute>
+        <User />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/users/:id/albums/:albumId',
+    element: (
+      <ProtectedRoute>
+        <Album />
       </ProtectedRoute>
     ),
   },
