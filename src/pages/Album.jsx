@@ -60,7 +60,12 @@ const Album = () => {
               >
                 <img src={photo.thumbnailUrl} alt={photo.title} />
                 <p className="text-xs text-ellipsis font-normal">
-                  {photo.title}
+                  <Link
+                    to={`/users/${params.id}/albums/${params.albumId}/photo/${photo.id}`}
+                    className="hover:underline hover:text-primary"
+                  >
+                    {photo.title}
+                  </Link>
                 </p>
               </div>
             ))}

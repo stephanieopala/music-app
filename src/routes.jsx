@@ -12,6 +12,7 @@ const LandingPage = Loadable(lazy(() => import('./pages/LandingPage')));
 const Home = Loadable(lazy(() => import('./pages/Home')));
 const User = Loadable(lazy(() => import('./pages/User')));
 const Album = Loadable(lazy(() => import('./pages/Album')));
+const AlbumPhoto = Loadable(lazy(() => import('./pages/AlbumPhoto')));
 const NotFound = Loadable(lazy(() => import('./pages/NotFound')));
 
 const routes = [
@@ -41,6 +42,14 @@ const routes = [
     element: (
       <ProtectedRoute>
         <Album />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/users/:id/albums/:albumId/photo/:photoId',
+    element: (
+      <ProtectedRoute>
+        <AlbumPhoto />
       </ProtectedRoute>
     ),
   },
