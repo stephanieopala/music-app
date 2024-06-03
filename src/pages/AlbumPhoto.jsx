@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import axiosInstance from '../../api/api';
 import Navbar from '../components/Navbar/Navbar';
 import Skeleton from '../components/Skeleton';
@@ -31,11 +32,18 @@ const AlbumPhoto = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleClose = () => {
+  const handleClose = (setNewTitle, setNewTitleError) => {
     setIsOpen(false);
+    setNewTitle('');
+    setNewTitleError(null);
   };
 
-  const handleEdit = async (newTitle) => {
+  const handleEdit = async (
+    newTitle,
+    setNewTitle,
+    newTitleError,
+    setNewTitleError
+  ) => {
     const body = {
       albumId: photo.data.albumId,
       id: photo.data.id,
@@ -44,12 +52,19 @@ const AlbumPhoto = () => {
       thumbnailUrl: photo.data.thumbnailUrl,
     };
     try {
-      console.log(body);
-      // const response = await axiosInstance.put(
-      //   `photos/${params.photoId}`,
-      //   body
-      // );
-      // console.log('response body', response.data);
+      if (!newTitleError) {
+        console.log(body);
+        const response = await axiosInstance.put(
+          `photos/${params.photoId}`,
+          JSON.stringify(body)
+        );
+        console.log('response body', response.data);
+        setNewTitle('');
+        setNewTitleError(null);
+        toast.success('Title updated successfully');
+        setIsOpen(false);
+        setPhoto({ isLoading: false, data: response.data });
+      }
     } catch (error) {
       console.log(error);
     }
