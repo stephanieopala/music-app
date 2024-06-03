@@ -11,6 +11,7 @@ export default {
       'table-head': '#f2f2f2',
       'white': '#fff',
       'error': '#ff3333',
+      'modal-bg': 'rgba(0, 0, 0, 0.315)'
     },
     extend: {},
   },
