@@ -17,6 +17,7 @@ This web application is built using;
 - `routing`: React Router
 - `state management`: Context API
 - `unit tests`: Vitest + React Testing Library
+- `authentication provider`: Google OAuth
 
 ##  Getting Started
 ### Pre-Requisites

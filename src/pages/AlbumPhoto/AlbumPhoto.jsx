@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import axiosInstance from '../../api/api';
-import Navbar from '../components/Navbar/Navbar';
-import Skeleton from '../components/Skeleton';
-import PhotoDialog from '../components/PhotoDialog/PhotoDialog';
+import axiosInstance from '../../../api/api';
+import Navbar from '../../components/Navbar/Navbar';
+import Skeleton from '../../components/Skeleton';
+import Modal from '../../components/Modal/Modal';
 
 const AlbumPhoto = () => {
   const params = useParams();
@@ -31,6 +31,10 @@ const AlbumPhoto = () => {
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
 
   const handleClose = (setNewTitle, setNewTitleError) => {
     setIsOpen(false);
@@ -65,6 +69,7 @@ const AlbumPhoto = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.error(error?.message);
     }
   };
 
@@ -97,7 +102,7 @@ const AlbumPhoto = () => {
               </p>
               <button
                 className="bg-primary text-white hover:bg-primary-dark px-4 py-2 border rounded text-sm"
-                onClick={() => setIsOpen(true)}
+                onClick={handleOpen}
               >
                 Edit Title
               </button>
@@ -108,7 +113,7 @@ const AlbumPhoto = () => {
         {displayLoading && <Skeleton />}
         {displayError && <p>{photo.error}</p>}
       </div>
-      <PhotoDialog
+      <Modal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         handleClose={handleClose}

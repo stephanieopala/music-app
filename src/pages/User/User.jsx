@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axiosInstance from '../../api/api';
-import Navbar from '../components/Navbar/Navbar';
-import Skeleton from '../components/Skeleton';
+import axiosInstance from '../../../api/api';
+import Navbar from '../../components/Navbar/Navbar';
+import Skeleton from '../../components/Skeleton';
 
 const User = () => {
   const params = useParams();
