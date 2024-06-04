@@ -8,12 +8,16 @@ const Loadable = (Component) => (props) => (
   </Suspense>
 );
 
-const LandingPage = Loadable(lazy(() => import('./pages/LandingPage')));
-const Home = Loadable(lazy(() => import('./pages/Home')));
-const User = Loadable(lazy(() => import('./pages/User')));
-const Album = Loadable(lazy(() => import('./pages/Album')));
-const AlbumPhoto = Loadable(lazy(() => import('./pages/AlbumPhoto')));
-const NotFound = Loadable(lazy(() => import('./pages/NotFound')));
+const LandingPage = Loadable(
+  lazy(() => import('./pages/LandingPage/LandingPage'))
+);
+const Home = Loadable(lazy(() => import('./pages/Home/Home')));
+const User = Loadable(lazy(() => import('./pages/User/User')));
+const Album = Loadable(lazy(() => import('./pages/Album/Album')));
+const AlbumPhoto = Loadable(
+  lazy(() => import('./pages/AlbumPhoto/AlbumPhoto'))
+);
+const NotFound = Loadable(lazy(() => import('./pages/NotFound/NotFound')));
 
 const routes = [
   {

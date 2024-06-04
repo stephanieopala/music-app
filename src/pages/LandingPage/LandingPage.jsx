@@ -1,6 +1,6 @@
-import LoginForm from '../components/LoginForm/LoginForm';
-import heroImage from '../assets/hero.jpg';
-import Navbar from '../components/Navbar/Navbar';
+import LoginForm from '../../components/LoginForm/LoginForm';
+import heroImage from '../../assets/hero.jpg';
+import Navbar from '../../components/Navbar/Navbar';
 
 const LandingPage = () => {
   return (
