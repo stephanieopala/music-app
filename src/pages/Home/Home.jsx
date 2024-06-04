@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axiosInstance from '../../api/api';
-import Navbar from '../components/Navbar/Navbar';
-import Skeleton from '../components/Skeleton';
+import axiosInstance from '../../../api/api';
+import Navbar from '../../components/Navbar/Navbar';
+import Skeleton from '../../components/Skeleton';
 
 const Home = () => {
   const [users, setUsers] = useState([]);
