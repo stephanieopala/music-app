@@ -37,7 +37,15 @@ You should have the following tools installed.
 npm install
 ```
 
-3. Run and view the project in a browser.
+3. Add the client id environment variable.
+- Create a ```.env``` file at the root of the project.
+- Add the following to the file.
+```
+VITE_CLIENT_ID="199059421088-viufk0fhaipbu9m2rsgpkjtmprf4cnq9.apps.googleusercontent.com"
+```
+- Save the file.
+
+4. Run and view the project in a browser.
 ```bash
 npm run dev
 ```
